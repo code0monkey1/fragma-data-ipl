@@ -1,5 +1,6 @@
 import { MatchCsvParser, MatchFilter, TopN } from './src/interfaces/services';
 import TopNTeams from './src/interfaces/use-cases/teams/top-n-teams-use-case';
+import { getMatchFilters } from './src/services/Filter';
 import {
   Match,
   MatchesFieldFirst,
@@ -50,7 +51,3 @@ describe('First Test', () => {
     console.log(result);
   });
 });
-
-const getMatchFilters = (filterYear: number) => {
-  return new MatchesInYear(new MatchesFieldFirst(), filterYear);
-};
