@@ -1,6 +1,6 @@
-import { Match } from './src/interfaces/use-cases/teams/top-n-teams-in-year-use-case';
 import { And } from './src/services/Filter';
 import { FilterByYear } from './src/services/FilterByYear';
+import { Match } from './top-n.test';
 
 export default class TopNTeamsOrchestrator {
   constructor(private readonly matches: Match[]) {}

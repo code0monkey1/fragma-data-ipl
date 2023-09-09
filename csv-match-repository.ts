@@ -16,8 +16,11 @@ class CsvMatchRepository implements MatchRepository {
   constructor(csvFilePath: string) {
     this.csvFilePath = csvFilePath;
   }
+  getMatchesByYear(year: number): Promise<Match[]> {
+    throw new Error('Method not implemented.');
+  }
 
-  async getMatchesByYear(year: number): Promise<Match[]> {
+  async getMatches(year: number): Promise<Match[]> {
     return new Promise<Match[]>((resolve, reject) => {
       const matches: Match[] = [];
 
