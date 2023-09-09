@@ -1,20 +1,16 @@
-import { And } from './src/services/Filter';
-import { FilterByYear } from './src/services/FilterByYear';
+import { MatchCsvParser } from './src/interfaces/services';
 import { Match } from './top-n.test';
 
 export default class TopNTeamsOrchestrator {
-  constructor(private readonly matches: Match[]) {}
+  constructor(private readonly matchCsvParser: MatchCsvParser) {}
 
   execute(top: number, year: number): void {
+    const matches = this.matchCsvParser.parse();
+
     const filteredMatches: Match[] = [];
 
-    this.matches.forEach((match) => {
-      const allConditionsHold = new And([new FilterByYear(match, year)]);
-
-      if (allConditionsHold.isValid()) {
-        console.log(match);
-        filteredMatches.push(match);
-      }
+    matches.forEach((match) => {
+      filteredMatches.push(match);
     });
 
     console.log('filtered matches', filteredMatches);

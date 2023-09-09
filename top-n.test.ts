@@ -5,7 +5,7 @@ import {
   getWinningTeams,
 } from './match.helper';
 import { MatchBuilder } from './src/Builders/MatchBuilder';
-import { MatchFilter, TopN } from './src/interfaces/services/indext';
+import { MatchFilter, TopN } from './src/interfaces/services';
 import { FieldFirst } from './src/services/Filter';
 // import { TopNTeamsInYear } from './top-n';
 
@@ -57,14 +57,6 @@ export class Team {
 
 //[+] find top 4 teams names from among the above
 
-interface MatchCsvParser {
-  parse(csv: string, separator: string, headers?: []): Match[];
-}
-class MatchCsvParserImpl implements MatchCsvParser {
-  parse(csvFile: string, separator: string, headers?: [] | undefined): Match[] {
-    throw new Error('Method not implemented.');
-  }
-}
 describe('Top 4 Teams', () => {
   describe('CSV Parser', () => {});
 
@@ -129,10 +121,10 @@ describe('Top 4 Teams', () => {
         .withWinner('d')
         .build();
 
-      const sut = getWinningTeams([match1, match2]);
+      const sut = getWinningTeams();
 
       //act
-      const result = sut.getTeamWinCount();
+      const result = sut.getTeamWinCount([match1, match2]);
 
       //assert
       expect(result.has('a'));
@@ -147,10 +139,10 @@ describe('Top 4 Teams', () => {
       team_count.set('a', 1);
       team_count.set('b', 2), team_count.set('c', 3), team_count.set('d', 4);
 
-      const sut = getTopNTossWinningTeamNames(team_count);
+      const sut = getTopNTossWinningTeamNames();
 
       //act
-      const result = sut.getTop(1);
+      const result = sut.getTop(team_count, 1);
       console.log(result);
       expect(result).toStrictEqual(['d']);
 
@@ -231,11 +223,12 @@ describe('get top 4 which elected to field first after winning toss in year 2016
 
     expect(allMatchesWithTossDecisionField(matches)).toBeTruthy();
 
-    const winningTeams = new WinningTeams(matches);
+    const winningTeams = new WinningTeams();
 
-    const filteredByNames: Map<string, number> = winningTeams.getTeamWinCount();
+    const filteredByNames: Map<string, number> =
+      winningTeams.getTeamWinCount(matches);
 
-    const top3 = getTopNTossWinningTeamNames(filteredByNames).getTop(3);
+    const top3 = getTopNTossWinningTeamNames().getTop(filteredByNames, 3);
 
     expect(top3).toStrictEqual(['c', 'b', 'a']);
   });
@@ -260,11 +253,9 @@ export class MatchesInYear implements MatchFilter {
   }
 }
 
-class TopNTossWinningTeamNames implements TopN<string> {
-  constructor(private readonly team_count: Map<string, number>) {}
-
-  getTop(n: number): string[] {
-    const names = Array.from(this.team_count.entries()).sort((a, b) => {
+class TopNTossWinningTeamNames implements TopN {
+  getTop(team_count: Map<string, number>, n: number): string[] {
+    const names = Array.from(team_count.entries()).sort((a, b) => {
       return b[1] - a[1];
     });
 
@@ -272,17 +263,23 @@ class TopNTossWinningTeamNames implements TopN<string> {
   }
 }
 
-const getTopNTossWinningTeamNames = (team_count: Map<string, number>) => {
-  return new TopNTossWinningTeamNames(team_count);
+const getTopNTossWinningTeamNames = () => {
+  return new TopNTossWinningTeamNames();
 };
 
-export class WinningTeams {
-  constructor(private readonly matches: Match[]) {}
+export interface WinCount {
+  getCount(matches: Match[]): Map<string, number>;
+}
 
-  getTeamWinCount(): Map<string, number> {
+export class WinningTeams implements WinCount {
+  getCount(matches: Match[]): Map<string, number> {
+    throw new Error('Method not implemented.');
+  }
+
+  getTeamWinCount(matches: Match[]): Map<string, number> {
     const team_win = new Map<string, number>();
 
-    this.matches.forEach((match) => {
+    matches.forEach((match) => {
       if (match.WINNER === match.TOSS_WINNER) {
         const count = team_win.get(match.WINNER) || 0;
         team_win.set(match.WINNER, count + 1);
