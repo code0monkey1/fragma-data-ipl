@@ -6,7 +6,7 @@ import {
 } from './match.helper';
 import { MatchBuilder } from './src/Builders/MatchBuilder';
 import { MatchFilter, TopN } from './src/interfaces/services';
-import { FieldFirst } from './src/services/Filter';
+
 // import { TopNTeamsInYear } from './top-n';
 
 export enum TOSS {
@@ -294,9 +294,7 @@ export class MatchesFieldFirst implements MatchFilter {
     const filtered: Match[] = [];
 
     matches.forEach((match) => {
-      const filteredMatches = new FieldFirst(match);
-
-      if (filteredMatches.isValid()) {
+      if (match.TOSS_DECISION === TOSS.FIELD) {
         filtered.push(match);
       }
     });
