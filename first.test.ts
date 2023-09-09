@@ -1,6 +1,11 @@
 import { MatchCsvParser, MatchFilter, TopN } from './src/interfaces/services';
 import TopNTeams from './src/interfaces/use-cases/teams/top-n-teams-use-case';
-import { Match, WinCount } from './top-n.test';
+import {
+  Match,
+  MatchesFieldFirst,
+  MatchesInYear,
+  WinCount,
+} from './top-n.test';
 
 describe('First Test', () => {
   it('one should be one', () => {
@@ -35,7 +40,7 @@ describe('First Test', () => {
 
     const sut = new TopNTeams(
       mockMatchCsvParser,
-      mockMatchFilter1,
+      getMatchFilters(2016),
       mockTeamWinCount,
       mockTopNTeams
     );
@@ -45,3 +50,7 @@ describe('First Test', () => {
     console.log(result);
   });
 });
+
+const getMatchFilters = (filterYear: number) => {
+  return new MatchesInYear(new MatchesFieldFirst(), filterYear);
+};
