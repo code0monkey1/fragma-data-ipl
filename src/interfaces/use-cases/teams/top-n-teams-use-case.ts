@@ -13,7 +13,7 @@ import {
 } from '../../services';
 
 interface TopNTeamsToFieldFirstUseCase {
-  execute(top: number, year: number): Promise<string[]>;
+  execute(top: number, year: number): Promise<Map<string, number>>;
 }
 export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
   constructor(
@@ -23,16 +23,14 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
     private readonly topNTeamNames: TopN
   ) {}
 
-  async execute(top: number): Promise<string[]> {
+  async execute(top: number): Promise<Map<string, number>> {
     const matches = await this.matchCsvParser.parse();
 
     const filteredMatches = this.matchFilter.filter(matches);
 
     const topTeams = this.teamWinCount.getTeamWinCount(filteredMatches);
 
-    const topTeamNames = this.topNTeamNames.getTop(topTeams, top);
-
-    return topTeamNames;
+    return topTeams;
   }
 }
 
