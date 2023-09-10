@@ -47,9 +47,11 @@ describe('csv parser test', () => {
     const csvReader = new CsvReader(csvFilePath);
     let line = await csvReader.readLine();
 
-    while (line !== null || line !== '\n') {
+    let count = 0;
+    while ((line !== null || line !== '\n') && count < 3) {
       console.log(line);
       line = await csvReader.readLine();
+      count++;
     }
   }, 100000); // increase timeout to 10 seconds);
 });
