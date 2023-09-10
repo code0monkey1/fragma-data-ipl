@@ -7,19 +7,6 @@ export interface Parser<T> {
   parse(): Promise<T[]>;
 }
 
-export const csvParser = async (fileName: string): Promise<Match[]> => {
-  const results: Match[] = [];
-
-  await new Promise((resolve) => {
-    fs.createReadStream(fileName)
-      .pipe(csv())
-      .on('data', (data: Match) => results.push(data))
-      .on('end', resolve);
-  });
-
-  return results;
-};
-
 export class CsvParser implements Parser<Match> {
   constructor(private readonly fileName: string) {}
   async parse(): Promise<Match[]> {
