@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const path = require('path');
 
-const csvParser = async (fileName: string): Promise<Match[]> => {
+export const csvParser = async (fileName: string): Promise<Match[]> => {
   const results: Match[] = [];
 
   await new Promise((resolve) => {
