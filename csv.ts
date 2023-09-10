@@ -1,4 +1,4 @@
-import { Match } from './src/interfaces/services';
+import { Match, TOSS } from './src/interfaces/services';
 
 const csv = require('csv-parser');
 const fs = require('fs');
@@ -15,7 +15,14 @@ export class CsvParser implements Parser<Match> {
     await new Promise((resolve) => {
       fs.createReadStream(this.fileName)
         .pipe(csv())
-        .on('data', (data: Match) => results.push(data))
+        .on('data', (data: Match) =>
+          results.push({
+            ...data,
+            TOSS_DECISION:
+              data.TOSS_DECISION === 'field' ? TOSS.FIELD : TOSS.BAT,
+            SEASON: Number(data.SEASON),
+          })
+        )
         .on('end', resolve);
     });
 
