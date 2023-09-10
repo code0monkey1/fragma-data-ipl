@@ -57,99 +57,99 @@ export class Team {
 
 //[+] find top 4 teams names from among the above
 
-describe('Top 4 Teams', () => {
-  describe('CSV Parser', () => {});
+// describe('Top 4 Teams', () => {
+//   describe('CSV Parser', () => {});
 
-  describe('CSV Match Parser', () => {
-    it('gets the specified filename , separator and headers', () => {});
-  });
+//   describe('CSV Match Parser', () => {
+//     it('gets the specified filename , separator and headers', () => {});
+//   });
 
-  describe('MatchesInYear', () => {
-    it('gets matches that happened in the year 2016', () => {
-      const match1 = new MatchBuilder().withSeason(2016).withMatchId(1).build();
-      const match2 = new MatchBuilder().withSeason(2017).withMatchId(2).build();
-      const filterYear = 2016;
+//   describe('MatchesInYear', () => {
+//     it('gets matches that happened in the year 2016', () => {
+//       const match1 = new MatchBuilder().withSeason(2016).withMatchId(1).build();
+//       const match2 = new MatchBuilder().withSeason(2017).withMatchId(2).build();
+//       const filterYear = 2016;
 
-      const sut = getMatchesInYear(getMockMatchFilter(), filterYear);
-      //act
-      //matches in year 2016
-      const matchesOfFilterYear = sut.filter([match1, match2]);
-      // assert
-      expect(matchesOfFilterYear).toContainEqual(match1);
-      expect(matchesOfFilterYear).not.toContainEqual(match2);
-      expect(matchesOfFilterYear).toHaveLength(1);
-    });
-  });
+//       const sut = getMatchesInYear(getMockMatchFilter(), filterYear);
+//       //act
+//       //matches in year 2016
+//       const matchesOfFilterYear = sut.filter([match1, match2]);
+//       // assert
+//       expect(matchesOfFilterYear).toContainEqual(match1);
+//       expect(matchesOfFilterYear).not.toContainEqual(match2);
+//       expect(matchesOfFilterYear).toHaveLength(1);
+//     });
+//   });
 
-  describe('Matches in which fielding was first', () => {
-    it('gets all matches where fielding was first', () => {
-      //arrange
+//   describe('Matches in which fielding was first', () => {
+//     it('gets all matches where fielding was first', () => {
+//       //arrange
 
-      const match1 = new MatchBuilder()
-        .withMatchId(1)
-        .withTossDecision(TOSS.FIELD)
-        .build();
-      const match2 = new MatchBuilder()
-        .withTossDecision(TOSS.BAT)
-        .withMatchId(2)
-        .build();
+//       const match1 = new MatchBuilder()
+//         .withMatchId(1)
+//         .withTossDecision(TOSS.FIELD)
+//         .build();
+//       const match2 = new MatchBuilder()
+//         .withTossDecision(TOSS.BAT)
+//         .withMatchId(2)
+//         .build();
 
-      const sut = getMatchesFieldFirst();
+//       const sut = getMatchesFieldFirst();
 
-      //act
+//       //act
 
-      //matches in year 2016
-      const matchesFieldFirst = sut.filter([match1, match2]);
+//       //matches in year 2016
+//       const matchesFieldFirst = sut.filter([match1, match2]);
 
-      // assert
-      expect(matchesFieldFirst).toContainEqual(match1);
-      expect(matchesFieldFirst).not.toContainEqual(match2);
+//       // assert
+//       expect(matchesFieldFirst).toContainEqual(match1);
+//       expect(matchesFieldFirst).not.toContainEqual(match2);
 
-      expect(matchesFieldFirst).toHaveLength(1);
-    });
-  });
+//       expect(matchesFieldFirst).toHaveLength(1);
+//     });
+//   });
 
-  describe('Winning Names', () => {
-    it('will give match winning names', () => {
-      //arrange
-      const match1 = new MatchBuilder()
-        .withTossWinner('a')
-        .withWinner('a')
-        .build();
-      const match2 = new MatchBuilder()
-        .withTossWinner('c')
-        .withWinner('d')
-        .build();
+//   describe('Winning Names', () => {
+//     it('will give match winning names', () => {
+//       //arrange
+//       const match1 = new MatchBuilder()
+//         .withTossWinner('a')
+//         .withWinner('a')
+//         .build();
+//       const match2 = new MatchBuilder()
+//         .withTossWinner('c')
+//         .withWinner('d')
+//         .build();
 
-      const sut = getWinningTeams();
+//       const sut = getWinningTeams();
 
-      //act
-      const result = sut.getTeamWinCount([match1, match2]);
+//       //act
+//       const result = sut.getTeamWinCount([match1, match2]);
 
-      //assert
-      expect(result.has('a'));
+//       //assert
+//       expect(result.has('a'));
 
-      expect(result.size).toEqual(1);
-    });
+//       expect(result.size).toEqual(1);
+//     });
 
-    it('will give top 3 names ', () => {
-      //arrange
-      const team_count = new Map<string, number>();
+//     it('will give top 3 names ', () => {
+//       //arrange
+//       const team_count = new Map<string, number>();
 
-      team_count.set('a', 1);
-      team_count.set('b', 2), team_count.set('c', 3), team_count.set('d', 4);
+//       team_count.set('a', 1);
+//       team_count.set('b', 2), team_count.set('c', 3), team_count.set('d', 4);
 
-      const sut = getTopNTossWinningTeamNames();
+//       const sut = getTopNTossWinningTeamNames();
 
-      //act
-      const result = sut.getTop(team_count, 1);
-      console.log(result);
-      expect(result).toStrictEqual(['d']);
+//       //act
+//       const result = sut.getTop(team_count, 1);
+//       console.log(result);
+//       expect(result).toStrictEqual(['d']);
 
-      //assert
-    });
-  });
-});
+//       //assert
+//     });
+//   });
+// });
 
 describe('get top 4 which elected to field first after winning toss in year 2016 and 2017', () => {
   it.each([

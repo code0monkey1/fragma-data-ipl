@@ -6,7 +6,7 @@ import {
   WinningTeams,
 } from '../../../../top-n.test';
 import { getMatchFilters } from '../../../services/Filter';
-import { MatchCsvParser, MatchFilter, TopN } from '../../services';
+import { MatchFilter, TopN } from '../../services';
 
 interface TopNTeamsToFieldFirstUseCase {
   execute(top: number, year: number): Promise<string[]>;
