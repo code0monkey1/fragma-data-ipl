@@ -40,10 +40,10 @@ describe('First Test', () => {
     // console.log(result);
   });
 });
-jest.setTimeout(50000000);
+jest.setTimeout(5000);
 describe.only('csv parser test', () => {
   it('things are going to get weird', async () => {
-    const sut = new CsvReader('./data/deliveries.csv');
+    const sut = new CsvReader('./data/matches.csv');
 
     try {
       let result = await sut.readLine();
