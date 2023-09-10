@@ -3,8 +3,6 @@ import { Match } from './src/interfaces/services';
 const csv = require('csv-parser');
 const fs = require('fs');
 
-const path = require('path');
-
 export interface Parser<T> {
   parse(): Promise<T[]>;
 }
