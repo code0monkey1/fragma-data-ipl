@@ -1,5 +1,11 @@
-import { Parser } from '../../../../csv';
-import { Match, WinCount } from '../../../../top-n.test';
+import { CsvParser, Parser } from '../../../../csv';
+import {
+  Match,
+  TopNTossWinningTeamNames,
+  WinCount,
+  WinningTeams,
+} from '../../../../top-n.test';
+import { getMatchFilters } from '../../../services/Filter';
 import { MatchCsvParser, MatchFilter, TopN } from '../../services';
 
 interface TopNTeamsToFieldFirstUseCase {
@@ -18,10 +24,17 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
 
     const filteredMatches = this.matchFilter.filter(matches);
 
-    const topTeams = this.teamWinCount.getCount(filteredMatches);
+    const topTeams = this.teamWinCount.getTeamWinCount(filteredMatches);
 
     const topTeamNames = this.topNTeamNames.getTop(topTeams, top);
 
     return topTeamNames;
   }
 }
+
+const topN = new TopNTeams(
+  new CsvParser('../../../../data/matches.csv'),
+  getMatchFilters(2016),
+  new WinningTeams(),
+  new TopNTossWinningTeamNames()
+);

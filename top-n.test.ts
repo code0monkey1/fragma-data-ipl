@@ -253,7 +253,7 @@ export class MatchesInYear implements MatchFilter {
   }
 }
 
-class TopNTossWinningTeamNames implements TopN {
+export class TopNTossWinningTeamNames implements TopN {
   getTop(team_count: Map<string, number>, n: number): string[] {
     const names = Array.from(team_count.entries()).sort((a, b) => {
       return b[1] - a[1];
