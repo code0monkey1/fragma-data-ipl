@@ -48,10 +48,8 @@ describe('csv parser test', () => {
 
     let line = await csvReader.readLine();
     console.log(line);
-
     line = await csvReader.readLine();
     console.log(line);
-
     line = await csvReader.readLine();
     console.log(line);
   }, 100000); // increase timeout to 10 seconds);
