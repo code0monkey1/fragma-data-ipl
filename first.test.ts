@@ -41,4 +41,18 @@ describe('First Test', () => {
   });
 });
 
-describe('csv parser test', () => {});
+describe('csv parser test', () => {
+  it('things are going to get weird', () => {});
+});
+
+interface ReadLine {
+  read(): string;
+}
+
+interface WriteLine {
+  write(line: string): void;
+}
+
+class CsvParser {
+  constructor();
+}
