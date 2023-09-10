@@ -1,54 +1,6 @@
 import { parse } from 'csv-parse';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Match } from '../top-n.test';
-
-// export class CsvParser {
-//   private csvFilePath: string;
-//   private headers: string[];
-//   constructor(filePath: string, headers: string[]) {
-//     this.csvFilePath = path.resolve(__dirname, filePath);
-//     this.headers = headers;
-//   }
-
-//   async readLine(): Promise<Match[]> {
-//     const result: Match[] = [];
-
-//     const fileContent = fs.readFileSync(this.csvFilePath, {
-//       encoding: 'utf-8',
-//     });
-
-//     parse(
-//       fileContent,
-//       {
-//         delimiter: ',',
-//         columns: this.headers,
-//       },
-//       (error, records) => {
-//         if (error) {
-//           console.error(error);
-//         }
-
-//         records.forEach((record: Match) => {
-//           const match: Match = {
-//             MATCH_ID: record.MATCH_ID,
-//             SEASON: record.SEASON,
-//             CITY: record.CITY,
-//             DATE: record.DATE,
-//             TEAM1: record.TEAM1,
-//             TEAM2: record.TEAM2,
-//             TOSS_WINNER: record.TOSS_WINNER,
-//             TOSS_DECISION: record.TOSS_DECISION,
-//             RESULT: record.RESULT,
-//             WINNER: record.WINNER,
-//           };
-//         });
-//       }
-//     );
-
-//     return result;
-//   }
-// }
 
 interface CSVRecord {
   [key: string]: string;

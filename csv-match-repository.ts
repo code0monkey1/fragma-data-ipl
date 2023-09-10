@@ -1,10 +1,6 @@
 // Assuming you have a MatchRepository interface
 
-import {
-  Match,
-  RESULT,
-  TOSS,
-} from './src/interfaces/use-cases/teams/top-n-teams-in-year-use-case';
+import { Match, RESULT, TOSS } from './src/interfaces/services';
 import { MatchRepository } from './src/services/MatchService';
 
 const fs = require('fs');

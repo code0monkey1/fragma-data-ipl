@@ -1,12 +1,14 @@
 import { CsvParser, Parser } from '../../../../csv';
+
+import { getMatchFilters } from '../../../services/Filter';
 import {
   Match,
+  MatchFilter,
+  TopN,
   TopNTossWinningTeamNames,
   WinCount,
   WinningTeams,
-} from '../../../../top-n.test';
-import { getMatchFilters } from '../../../services/Filter';
-import { MatchFilter, TopN } from '../../services';
+} from '../../services';
 
 interface TopNTeamsToFieldFirstUseCase {
   execute(top: number, year: number): Promise<string[]>;

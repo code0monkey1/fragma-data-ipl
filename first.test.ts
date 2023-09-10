@@ -4,7 +4,6 @@ import { CsvParser, csvParser } from './csv';
 import { MatchCsvParser, MatchFilter, TopN } from './src/interfaces/services';
 import TopNTeams from './src/interfaces/use-cases/teams/top-n-teams-use-case';
 import { getMatchFilters } from './src/services/Filter';
-import { Match, WinCount } from './top-n.test';
 
 describe('First Test', () => {
   it('one should be one', () => {

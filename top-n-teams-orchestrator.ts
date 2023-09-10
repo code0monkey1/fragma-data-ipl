@@ -1,5 +1,4 @@
-import { MatchCsvParser } from './src/interfaces/services';
-import { Match } from './top-n.test';
+import { Match, MatchCsvParser } from './src/interfaces/services';
 
 export default class TopNTeamsOrchestrator {
   constructor(private readonly matchCsvParser: MatchCsvParser) {}

@@ -1,53 +1,15 @@
-import {
-  getMatchesFieldFirst,
-  getMatchesInYear,
-  getMockMatchFilter,
-  getWinningTeams,
-} from './match.helper';
 import { MatchBuilder } from './src/Builders/MatchBuilder';
-import { MatchFilter, TopN } from './src/interfaces/services';
+import {
+  Match,
+  MatchesFieldFirst,
+  MatchesInYear,
+  RESULT,
+  TOSS,
+  TopNTossWinningTeamNames,
+  WinningTeams,
+} from './src/interfaces/services';
 
 // import { TopNTeamsInYear } from './top-n';
-
-export enum TOSS {
-  FIELD = 'field',
-  BAT = 'bat',
-}
-
-export enum RESULT {
-  WIN = 'win',
-  LOSE = 'lose',
-  NO_RESULT = 'no result',
-}
-
-export type Match = {
-  MATCH_ID: number;
-  SEASON: number;
-  CITY: string;
-  DATE: Date;
-  TEAM1: string;
-  TEAM2: string;
-  TOSS_WINNER: string;
-  TOSS_DECISION: TOSS;
-  RESULT: RESULT;
-  WINNER: string;
-};
-
-export class Team {
-  constructor(
-    private readonly name: string,
-    private readonly matches: Match[]
-  ) {}
-
-  getWinningCount() {}
-
-  addMatch(match: Match) {
-    this.matches.push(match);
-  }
-  getName() {
-    return this.name;
-  }
-}
 
 //[+] find match id's in year 2016
 
@@ -238,65 +200,8 @@ const allMatchesWithTossDecisionField = (matches: Match[]) => {
   return matches.every((match) => match.TOSS_DECISION === TOSS.FIELD);
 };
 
-export class MatchesInYear implements MatchFilter {
-  constructor(
-    private readonly matchFilter: MatchFilter,
-    private readonly year: number
-  ) {}
-
-  filter(matches: Match[]): Match[] {
-    const filteredMatches = matches.filter(
-      (match) => match.SEASON === this.year
-    );
-
-    return this.matchFilter.filter(filteredMatches);
-  }
-}
-
-export class TopNTossWinningTeamNames implements TopN {
-  getTop(team_count: Map<string, number>, n: number): string[] {
-    const names = Array.from(team_count.entries()).sort((a, b) => {
-      return b[1] - a[1];
-    });
-
-    return names.map((name) => name[0]).slice(0, n);
-  }
-}
-
 const getTopNTossWinningTeamNames = () => {
   return new TopNTossWinningTeamNames();
 };
-
-export interface WinCount {
-  getTeamWinCount(matches: Match[]): Map<string, number>;
-}
-
-export class WinningTeams implements WinCount {
-  getTeamWinCount(matches: Match[]): Map<string, number> {
-    const team_win = new Map<string, number>();
-
-    matches.forEach((match) => {
-      if (match.WINNER === match.TOSS_WINNER) {
-        const count = team_win.get(match.WINNER) || 0;
-        team_win.set(match.WINNER, count + 1);
-      }
-    });
-
-    return team_win;
-  }
-}
-export class MatchesFieldFirst implements MatchFilter {
-  filter(matches: Match[]): Match[] {
-    const filtered: Match[] = [];
-
-    matches.forEach((match) => {
-      if (match.TOSS_DECISION === TOSS.FIELD) {
-        filtered.push(match);
-      }
-    });
-
-    return filtered;
-  }
-}
 
 //[-] filter team names that elected to field

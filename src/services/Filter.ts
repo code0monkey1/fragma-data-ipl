@@ -1,9 +1,4 @@
-import {
-  Match,
-  MatchesFieldFirst,
-  MatchesInYear,
-  TOSS,
-} from '../../top-n.test';
+import { MatchesFieldFirst, MatchesInYear } from '../interfaces/services';
 
 export const getMatchFilters = (filterYear: number) => {
   return new MatchesInYear(new MatchesFieldFirst(), filterYear);

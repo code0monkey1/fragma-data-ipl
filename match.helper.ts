@@ -1,10 +1,10 @@
-import { MatchFilter } from './src/interfaces/services';
 import {
   Match,
+  MatchFilter,
   MatchesFieldFirst,
   MatchesInYear,
   WinningTeams,
-} from './top-n.test';
+} from './src/interfaces/services';
 
 export const getWinningTeams = () => {
   return new WinningTeams();

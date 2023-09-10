@@ -1,6 +1,6 @@
 // Assuming you have a Match entity
 
-import { Match } from '../interfaces/use-cases/teams/top-n-teams-in-year-use-case';
+import { Match } from '../interfaces/services';
 
 export interface MatchRepository {
   getMatchesByYear(year: number): Promise<Match[]>;

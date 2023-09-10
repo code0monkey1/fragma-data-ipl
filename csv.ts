@@ -1,4 +1,4 @@
-import { Match } from './top-n.test';
+import { Match } from './src/interfaces/services';
 
 const csv = require('csv-parser');
 const fs = require('fs');
