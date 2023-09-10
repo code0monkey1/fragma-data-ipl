@@ -1,9 +1,11 @@
 import { CsvParser, Parser } from '../../../../csv';
 
 import { getMatchFilters } from '../../../services/Filter';
+
 import {
   Match,
   MatchFilter,
+  TOSS,
   TopN,
   TopNTossWinningTeamNames,
   WinCount,
@@ -24,11 +26,17 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
   async execute(top: number): Promise<string[]> {
     const matches = await this.matchCsvParser.parse();
 
-    console.log(matches);
+    const convertedMatches: Match[] = matches.map((m: Match) => {
+      return {
+        ...m,
+        TOSS_DECISION: m.TOSS_DECISION === 'field' ? TOSS.FIELD : TOSS.BAT,
+        SEASON: Number(m.SEASON),
+      };
+    });
 
-    const filteredMatches = this.matchFilter.filter(matches);
+    const filteredMatches = this.matchFilter.filter(convertedMatches);
 
-    console.log(filteredMatches);
+    console.log('filtered matches', filteredMatches);
     const topTeams = this.teamWinCount.getTeamWinCount(filteredMatches);
 
     console.log(topTeams);
