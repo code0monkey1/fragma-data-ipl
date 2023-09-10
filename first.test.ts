@@ -81,15 +81,6 @@ class CsvReader implements Source<string> {
     });
     return line;
   }
-
-  // async readLine(): Promise<string | null> {
-  //   const line = await new Promise<string | null>((resolve) => {
-  //     this.rl.once('line', (line) => {
-  //       resolve(line);
-  //     });
-  //   });
-  //   return line;
-  // }
 }
 
 export default CsvReader;
