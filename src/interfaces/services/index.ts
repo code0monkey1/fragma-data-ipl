@@ -1,8 +1,9 @@
 export interface TopN {
   getTop(teamCount: Map<string, number>, n: number): Map<string, number>;
 }
-export interface MatchFilter {
-  filter(matches: Match[]): Match[];
+
+export interface Filter<T> {
+  filter(matches: T[]): T[];
 }
 
 export interface MatchCsvParser {
@@ -22,7 +23,7 @@ export type Match = {
   WINNER: string;
 };
 
-export class WinningTeams implements WinCount {
+export class WinningTeams implements ItemScore<string, number, Match> {
   getTeamWinCount(matches: Match[]): Map<string, number> {
     const team_win = new Map<string, number>();
 
@@ -47,10 +48,10 @@ export enum RESULT {
   LOSE = 'lose',
   NO_RESULT = 'no result',
 }
-export interface WinCount {
-  getTeamWinCount(matches: Match[]): Map<string, number>;
+export interface ItemScore<Item, Score, Input> {
+  getTeamWinCount(matches: Input[]): Map<Item, Score>;
 }
-export class MatchesFieldFirst implements MatchFilter {
+export class MatchesFieldFirst implements Filter<Match> {
   filter(matches: Match[]): Match[] {
     const filtered: Match[] = [];
 
@@ -63,9 +64,9 @@ export class MatchesFieldFirst implements MatchFilter {
     return filtered;
   }
 }
-export class MatchesInYear implements MatchFilter {
+export class MatchesInYear implements Filter<Match> {
   constructor(
-    private readonly matchFilter: MatchFilter,
+    private readonly matchFilter: Filter<Match>,
     private readonly year: number
   ) {}
 

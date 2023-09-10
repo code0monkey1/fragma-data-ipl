@@ -3,12 +3,12 @@ import { CsvParser, Parser } from '../../../../csv';
 import { getMatchFilters } from '../../../services/Filter';
 
 import {
+  Filter,
+  ItemScore,
   Match,
-  MatchFilter,
   TOSS,
   TopN,
   TopNTossWinningTeamNames,
-  WinCount,
   WinningTeams,
 } from '../../services';
 
@@ -18,8 +18,8 @@ interface TopNTeamsToFieldFirstUseCase {
 export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
   constructor(
     private readonly matchCsvParser: Parser<Match>,
-    private readonly matchFilter: MatchFilter,
-    private readonly teamWinCount: WinCount,
+    private readonly matchFilter: Filter<Match>,
+    private readonly teamWinCount: ItemScore<string, number, Match>,
     private readonly topNTeamNames: TopN
   ) {}
 
