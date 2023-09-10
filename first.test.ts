@@ -71,11 +71,12 @@ class CsvReader {
   }
 
   async getNextLine(): Promise<string | null> {
-    return new Promise((resolve) => {
+    const line = await new Promise<string | null>((resolve) => {
       this.rl.once('line', (line) => {
         resolve(line);
       });
     });
+    return line;
   }
 
   async readCsvFile(): Promise<void> {
