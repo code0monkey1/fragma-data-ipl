@@ -45,16 +45,8 @@ describe('csv parser test', () => {
   it('should read lines from CSV file', async () => {
     const csvFilePath = './data/matches.csv';
     const csvReader = new CsvReader(csvFilePath);
+
     let line = await csvReader.readLine();
-    console.log(line);
-
-    line = await csvReader.readLine();
-    console.log(line);
-
-    line = await csvReader.readLine();
-    console.log(line);
-
-    line = await csvReader.readLine();
     console.log(line);
 
     line = await csvReader.readLine();
