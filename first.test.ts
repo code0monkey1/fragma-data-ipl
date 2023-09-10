@@ -1,6 +1,7 @@
 import { parse } from 'csv-parse';
 import fs from 'fs';
 
+import csvParser from 'csv-parser';
 import { MatchCsvParser, MatchFilter, TopN } from './src/interfaces/services';
 import TopNTeams from './src/interfaces/use-cases/teams/top-n-teams-use-case';
 import { getMatchFilters } from './src/services/Filter';
@@ -129,7 +130,13 @@ class CsvReader implements Source<string> {
 
 export default CsvReader;
 
-describe.only('csv-parser', () => {});
+describe.only('csv-parser', () => {
+  it('wil give result', async () => {
+    const sut = await csvParser();
+
+    console.log('The result is', await sut);
+  });
+});
 
 // export class CsvReader implements Source<string> {
 //   readLine(): Promise<string | null> {
