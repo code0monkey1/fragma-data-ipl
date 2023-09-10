@@ -8,24 +8,22 @@ const path = require('path');
 const csvParser = async (fileName: string): Promise<Match[]> => {
   const results: Match[] = [];
 
-  const reader = fs
-    .createReadStream(fileName)
-    .pipe(csv())
-    .on('data', (data: Match) => results.push(data));
-
   await new Promise((resolve) => {
-    reader.on('end', resolve);
+    fs.createReadStream(fileName)
+      .pipe(csv())
+      .on('data', (data: Match) => results.push(data))
+      .on('end', resolve);
   });
 
   return results;
 };
 
-(async () => {
-  const result = await csvParser('./data/matches.csv');
+// (async () => {
+//   const result = await csvParser('./data/matches.csv');
 
-  console.log('Results are', result);
+//   console.log('Results are', result);
 
-  console.log('The total lines are', result.length);
+//   console.log('The total lines are', result.length);
 
-  console.log('First line', result[0]);
-})();
+//   console.log('First line', result[0]);
+// })();
