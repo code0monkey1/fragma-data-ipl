@@ -1,6 +1,6 @@
 import { parse } from 'csv-parse';
 import fs from 'fs';
-import { csvParser } from './csv';
+import { CsvParser, csvParser } from './csv';
 import { MatchCsvParser, MatchFilter, TopN } from './src/interfaces/services';
 import TopNTeams from './src/interfaces/use-cases/teams/top-n-teams-use-case';
 import { getMatchFilters } from './src/services/Filter';
@@ -131,11 +131,13 @@ export default CsvReader;
 
 describe.only('csv-parser', () => {
   it('wil give result', async () => {
-    const sut = await csvParser('./data/matches.csv');
+    const sut = new CsvParser('./data/matches.csv');
 
-    console.log('The result is', sut);
+    const result = await sut.parse();
 
-    console.log('The length is ', sut.length);
+    console.log('The result is', result);
+
+    console.log('The length for sure is ', result.length);
   });
 });
 
