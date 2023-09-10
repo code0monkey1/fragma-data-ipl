@@ -54,7 +54,9 @@ describe.only('csv parser test', () => {
 
       result = await sut.readLine();
       console.log(result);
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+    }
   });
 });
 
