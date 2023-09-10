@@ -37,6 +37,7 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
     const filteredMatches = this.matchFilter.filter(convertedMatches);
 
     console.log('filtered matches', filteredMatches);
+
     const topTeams = this.teamWinCount.getTeamWinCount(filteredMatches);
 
     console.log(topTeams);
@@ -52,7 +53,7 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
 (async () => {
   const topN = new TopNTeams(
     new CsvParser('../../../../data/matches.csv'),
-    getMatchFilters(2015),
+    getMatchFilters(2014),
     new WinningTeams(),
     new TopNTossWinningTeamNames()
   );
