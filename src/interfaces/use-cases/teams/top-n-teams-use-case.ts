@@ -30,9 +30,9 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
 
     const winCount = this.teamWinCount.getTeamWinCount(filteredMatches);
 
-    console.log(winCount);
+    const result = this.topNTeamNames.getTop(winCount, top);
 
-    return winCount;
+    return result;
   }
 }
 
