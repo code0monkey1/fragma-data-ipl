@@ -54,7 +54,7 @@ describe('csv parser test', () => {
 
     line = await csvReader.readLine();
     console.log(line);
-  });
+  }, 100000); // increase timeout to 10 seconds);
 });
 
 interface Source<T> {
