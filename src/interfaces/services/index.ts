@@ -9,16 +9,6 @@ export interface MatchCsvParser {
   parse(): Match[];
 }
 
-export class MatchCsvParserImpl implements MatchCsvParser {
-  constructor(
-    private readonly csvFile: string,
-    private readonly separator: string,
-    private readonly headers?: [] | undefined
-  ) {}
-  parse(): Match[] {
-    throw new Error('Method not implemented.');
-  }
-}
 export type Match = {
   MATCH_ID: number;
   SEASON: number;
