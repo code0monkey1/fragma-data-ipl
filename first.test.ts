@@ -72,23 +72,17 @@ export class CsvMatchRepository<String> implements Source<String> {
     this.csvFilePath = csvFilePath;
   }
 
-  async getMatches(year: number): Promise<Match[]> {
-    return new Promise<Match[]>((resolve, reject) => {
-      const matches: Match[] = [];
+  async getMatches(year: number): string {
+    const matches: Match[] = [];
 
-      fs.createReadStream(this.csvFilePath)
-        .pipe(csv())
-        .on('data', (row: any) => {
-          // Assuming the CSV has columns: team1, team2, winner, year
-          console.log(row);
-        })
-        .on('end', () => {
-          resolve(matches);
-        })
-        .on('error', (error: any) => {
-          reject(error);
-        });
-    });
+    fs.createReadStream(this.csvFilePath)
+      .pipe(csv())
+      .on('data', (row: any) => {
+        // Assuming the CSV has columns: team1, team2, winner, year
+        console.log(row);
+      })
+      .on('end', () => {})
+      .on('error', (error: any) => {});
   }
 
   read(): String {
