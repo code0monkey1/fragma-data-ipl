@@ -45,14 +45,25 @@ describe('csv parser test', () => {
   it('things are going to get weird', () => {});
 });
 
-interface ReadLine {
-  read(): string;
+interface Source {
+  readLine(): object;
 }
 
-interface WriteLine {
-  write(line: string): void;
+interface Destination {
+  writeLine(line: string): void;
 }
 
 class CsvParser {
-  constructor();
+  constructor(
+    private readonly readLine: Source,
+    private readonly writeLine: Destination
+  ) {}
+
+  parse() {}
+}
+
+class CsvSource implements Source {
+  readLine(): object {
+    throw new Error('Method not implemented.');
+  }
 }
