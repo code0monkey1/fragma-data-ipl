@@ -46,22 +46,26 @@ describe('csv parser test', () => {
     const sut = new CsvReader('./data/deliveries.csv');
 
     try {
-      let result = await sut.getNextLine();
+      let result = await sut.readLine();
       console.log(result);
-      result = await sut.getNextLine();
+      result = await sut.readLine();
       console.log(result);
-      result = await sut.getNextLine();
+      result = await sut.readLine();
       console.log(result);
-      result = await sut.getNextLine();
+      result = await sut.readLine();
       console.log(result);
     } catch (err) {}
   });
 });
 
+interface Source<T> {
+  readLine(): Promise<T | null>;
+}
+
 import fs from 'fs';
 import readline from 'readline';
 
-class CsvReader {
+class CsvReader implements Source<string> {
   private readonly readStream: fs.ReadStream;
   private readonly rl: readline.Interface;
 
@@ -69,8 +73,7 @@ class CsvReader {
     this.readStream = fs.createReadStream(filePath);
     this.rl = readline.createInterface({ input: this.readStream });
   }
-
-  async getNextLine(): Promise<string | null> {
+  async readLine(): Promise<string | null> {
     const line = await new Promise<string | null>((resolve) => {
       this.rl.once('line', (line) => {
         resolve(line);
@@ -79,25 +82,14 @@ class CsvReader {
     return line;
   }
 
-  async readCsvFile(): Promise<void> {
-    const rl = this.rl;
-
-    rl.on('close', () => {
-      console.log('CSV file read complete.');
-    });
-
-    rl.on('error', (error) => {
-      console.error(error);
-    });
-
-    while (true) {
-      const line = await this.getNextLine();
-      if (line === null) {
-        break;
-      }
-      console.log(line);
-    }
-  }
+  // async readLine(): Promise<string | null> {
+  //   const line = await new Promise<string | null>((resolve) => {
+  //     this.rl.once('line', (line) => {
+  //       resolve(line);
+  //     });
+  //   });
+  //   return line;
+  // }
 }
 
 export default CsvReader;
