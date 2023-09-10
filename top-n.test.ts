@@ -268,14 +268,10 @@ const getTopNTossWinningTeamNames = () => {
 };
 
 export interface WinCount {
-  getCount(matches: Match[]): Map<string, number>;
+  getTeamWinCount(matches: Match[]): Map<string, number>;
 }
 
 export class WinningTeams implements WinCount {
-  getCount(matches: Match[]): Map<string, number> {
-    throw new Error('Method not implemented.');
-  }
-
   getTeamWinCount(matches: Match[]): Map<string, number> {
     const team_win = new Map<string, number>();
 
