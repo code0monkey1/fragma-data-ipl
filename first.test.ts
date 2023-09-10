@@ -46,13 +46,25 @@ describe('csv parser test', () => {
     const csvFilePath = './data/matches.csv';
     const csvReader = new CsvReader(csvFilePath);
     let line = await csvReader.readLine();
+    console.log(line);
 
-    let count = 0;
-    while ((line !== null || line !== '\n') && count < 3) {
-      console.log(line);
-      line = await csvReader.readLine();
-      count++;
-    }
+    line = await csvReader.readLine();
+    console.log(line);
+
+    line = await csvReader.readLine();
+    console.log(line);
+
+    line = await csvReader.readLine();
+    console.log(line);
+
+    line = await csvReader.readLine();
+    console.log(line);
+
+    line = await csvReader.readLine();
+    console.log(line);
+
+    line = await csvReader.readLine();
+    console.log(line);
   }, 100000); // increase timeout to 10 seconds);
 });
 
