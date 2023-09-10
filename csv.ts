@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const path = require('path');
 
-interface Parser<T> {
+export interface Parser<T> {
   parse(): Promise<T[]>;
 }
 
