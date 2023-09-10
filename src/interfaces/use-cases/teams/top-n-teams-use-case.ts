@@ -24,11 +24,18 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
   async execute(top: number): Promise<string[]> {
     const matches = await this.matchCsvParser.parse();
 
+    console.log(matches);
+
     const filteredMatches = this.matchFilter.filter(matches);
 
+    console.log(filteredMatches);
     const topTeams = this.teamWinCount.getTeamWinCount(filteredMatches);
 
+    console.log(topTeams);
+
     const topTeamNames = this.topNTeamNames.getTop(topTeams, top);
+
+    console.log(topTeamNames);
 
     return topTeamNames;
   }
