@@ -94,7 +94,6 @@ export class TopNTossWinningTeamNames implements TopN {
       return b[1] - a[1];
     });
 
-    console.log('names', names);
     const map = names.reduce((acc, obj) => {
       acc.set(obj[0], obj[1]);
       return acc;
