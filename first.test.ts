@@ -47,13 +47,8 @@ describe('csv parser test', () => {
 
     try {
       let result = await sut.readLine();
-      console.log(result);
-      result = await sut.readLine();
-      console.log(result);
-      result = await sut.readLine();
-      console.log(result);
-      result = await sut.readLine();
-      console.log(result);
+
+      while (result !== null || result !== '\n') console.log(result);
     } catch (err) {}
   });
 });
