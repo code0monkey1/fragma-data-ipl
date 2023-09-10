@@ -1,5 +1,5 @@
 export interface TopN {
-  getTop(teamCount: Map<string, number>, n: number): string[];
+  getTop(teamCount: Map<string, number>, n: number): Map<string, number>;
 }
 export interface MatchFilter {
   filter(matches: Match[]): Match[];
@@ -89,12 +89,18 @@ export class MatchesInYear implements MatchFilter {
 }
 
 export class TopNTossWinningTeamNames implements TopN {
-  getTop(team_count: Map<string, number>, n: number): string[] {
+  getTop(team_count: Map<string, number>, n: number): Map<string, number> {
     const names = Array.from(team_count.entries()).sort((a, b) => {
       return b[1] - a[1];
     });
 
-    return names.map((name) => name[0]).slice(0, n);
+    console.log(names);
+    const map = names.reduce((acc, obj) => {
+      acc.set(obj[0], obj[1]);
+      return acc;
+    }, new Map());
+
+    return map;
   }
 }
 export class Team {
