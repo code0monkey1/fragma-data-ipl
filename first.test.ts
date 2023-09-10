@@ -44,40 +44,7 @@ describe('First Test', () => {
   });
 });
 
-describe.only('csv parser test', () => {
-  it('should read lines from CSV file', async () => {
-    const csvFilePath = '../data/matches.csv';
-    const matchHeaders = [
-      'MATCH_ID',
-      'SEASON',
-      'CITY',
-      'DATE',
-      'TEAM1',
-      'TEAM2',
-      'TOSS_WINNER',
-      'TOSS_DECISION',
-      'RESULT',
-      'WINNER',
-    ];
-    // const csvParse = new CsvParser(csvFilePath, matchHeaders);
-    // const result = await csvParse.readLine();
-
-    // console.log(result);
-
-    // const csvReader = new CsvReader(csvFilePath);
-
-    // let line = await csvReader.readLine();
-    // console.log(line);
-
-    // line = await csvReader.readLine();
-    // console.log(line);
-
-    // line = await csvReader.readLine();
-    // console.log(line);
-  }, 100000); // increase timeout to 10 seconds);
-});
-
-describe.only('csv-parser', () => {
+describe('csv-parser', () => {
   it('wil give result', async () => {
     const sut = new CsvParser('./data/matches.csv');
 
