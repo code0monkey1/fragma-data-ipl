@@ -41,22 +41,19 @@ describe('First Test', () => {
   });
 });
 
-describe.only('csv parser test', () => {
-  it('things are going to get weird', async () => {
-    const sut = new CsvReader('./data/matches.csv');
+describe('csv parser test', () => {
+  it('should read lines from CSV file', async () => {
+    const csvFilePath = './data/matches.csv';
+    const csvReader = new CsvReader(csvFilePath);
 
-    try {
-      let result = await sut.readLine();
-      console.log(result);
+    let line = await csvReader.readLine();
+    console.log(line);
 
-      result = await sut.readLine();
-      console.log(result);
+    line = await csvReader.readLine();
+    console.log(line);
 
-      result = await sut.readLine();
-      console.log(result);
-    } catch (err) {
-      console.error(err);
-    }
+    line = await csvReader.readLine();
+    console.log(line);
   });
 });
 
