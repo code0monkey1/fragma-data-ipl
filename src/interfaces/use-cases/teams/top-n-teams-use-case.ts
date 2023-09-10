@@ -32,9 +32,14 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
   }
 }
 
-const topN = new TopNTeams(
-  new CsvParser('../../../../data/matches.csv'),
-  getMatchFilters(2016),
-  new WinningTeams(),
-  new TopNTossWinningTeamNames()
-);
+(async () => {
+  const topN = new TopNTeams(
+    new CsvParser('../../../../data/matches.csv'),
+    getMatchFilters(2016),
+    new WinningTeams(),
+    new TopNTossWinningTeamNames()
+  );
+
+  const result = await topN.execute(3);
+  console.log(result);
+})();
