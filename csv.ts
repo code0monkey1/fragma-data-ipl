@@ -12,9 +12,6 @@ export const csvParser = async (fileName: string): Promise<Match[]> => {
     fs.createReadStream(fileName)
       .pipe(csv())
       .on('data', (data: Match) => results.push(data))
-      .on('error', (err: Error) => {
-        console.error(err);
-      })
       .on('end', resolve);
   });
 
