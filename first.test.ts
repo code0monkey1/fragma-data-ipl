@@ -42,54 +42,61 @@ describe('First Test', () => {
 });
 
 describe('csv parser test', () => {
-  it('things are going to get weird', () => {});
+  it('things are going to get weird', async () => {
+    const sut = new CsvReader('./data/deliveries.csv');
+
+    try {
+      let result = await sut.getNextLine();
+      console.log(result);
+      result = await sut.getNextLine();
+      console.log(result);
+      result = await sut.getNextLine();
+      console.log(result);
+      result = await sut.getNextLine();
+      console.log(result);
+    } catch (err) {}
+  });
 });
 
-interface Source<T> {
-  read(): T;
-}
+import fs from 'fs';
+import readline from 'readline';
 
-interface Destination<T> {
-  write(line: T): void;
-}
+class CsvReader {
+  private readonly readStream: fs.ReadStream;
+  private readonly rl: readline.Interface;
 
-class CsvProcessor<T> {
-  constructor(
-    private readonly readLine: Source<T>,
-    private readonly writeLine: Destination<T>
-  ) {}
-
-  parse() {}
-}
-
-const fs = require('fs');
-const csv = require('csv-parser');
-
-export class CsvMatchRepository<String> implements Source<String> {
-  private readonly csvFilePath: string;
-
-  constructor(csvFilePath: string, private csvReader: () => string) {
-    this.csvFilePath = csvFilePath;
-    this.initialize();
+  constructor(filePath: string) {
+    this.readStream = fs.createReadStream(filePath);
+    this.rl = readline.createInterface({ input: this.readStream });
   }
 
-  async initialize() {
-    this.csvReader = await fs.createReadStream(this.csvFilePath).pipe(csv());
-
-    //  const line = await content.on('data', (row: any) => {
-    //      // Assuming the CSV has columns: team1, team2, winner, year
-    //      console.log(row);
-    //      return row as string;
-    //    })
-
-    //   return line;
+  async getNextLine(): Promise<string | null> {
+    return new Promise((resolve) => {
+      this.rl.once('line', (line) => {
+        resolve(line);
+      });
+    });
   }
 
-  async read(): String {
-    try {
-      const line = await fs.createReadStream(this.csvFilePath).pipe(csv());
-    } catch (err) {
-      console.log('Error', err);
+  async readCsvFile(): Promise<void> {
+    const rl = this.rl;
+
+    rl.on('close', () => {
+      console.log('CSV file read complete.');
+    });
+
+    rl.on('error', (error) => {
+      console.error(error);
+    });
+
+    while (true) {
+      const line = await this.getNextLine();
+      if (line === null) {
+        break;
+      }
+      console.log(line);
     }
   }
 }
+
+export default CsvReader;
