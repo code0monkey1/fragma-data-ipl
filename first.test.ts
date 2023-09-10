@@ -62,8 +62,36 @@ class CsvProcessor<T> {
   parse() {}
 }
 
-class CsvSource implements Source<String> {
-  read(): string {
+const fs = require('fs');
+const csv = require('csv-parser');
+
+export class CsvMatchRepository<String> implements Source<String> {
+  private readonly csvFilePath: string;
+
+  constructor(csvFilePath: string) {
+    this.csvFilePath = csvFilePath;
+  }
+
+  async getMatches(year: number): Promise<Match[]> {
+    return new Promise<Match[]>((resolve, reject) => {
+      const matches: Match[] = [];
+
+      fs.createReadStream(this.csvFilePath)
+        .pipe(csv())
+        .on('data', (row: any) => {
+          // Assuming the CSV has columns: team1, team2, winner, year
+          console.log(row);
+        })
+        .on('end', () => {
+          resolve(matches);
+        })
+        .on('error', (error: any) => {
+          reject(error);
+        });
+    });
+  }
+
+  read(): String {
     throw new Error('Method not implemented.');
   }
 }
