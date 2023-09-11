@@ -1,7 +1,7 @@
 import { parse } from 'csv-parse';
 import fs from 'fs';
-import { CsvParser, csvParser } from './csv';
-import { MatchCsvParser, MatchFilter, TopN } from './src/interfaces/services';
+import { CsvParser } from './csv';
+import { MatchCsvParser, TopN } from './src/interfaces/services';
 import TopNTeams from './src/interfaces/use-cases/teams/top-n-teams-use-case';
 import { getMatchFilters } from './src/services/Filter';
 
@@ -48,9 +48,5 @@ describe('csv-parser', () => {
     const sut = new CsvParser('./data/matches.csv');
 
     const result = await sut.parse();
-
-    console.log('The result is', result);
-
-    console.log('The length for sure is ', result.length);
   });
 });

@@ -1,4 +1,4 @@
-import { Match, RESULT, TOSS } from '../../top-n.test';
+import { Match, RESULT, TOSS } from '../interfaces/services';
 
 export class MatchBuilder {
   private match: Match = {

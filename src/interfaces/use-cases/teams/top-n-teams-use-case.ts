@@ -19,7 +19,7 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
     private readonly matchCsvParser: Parser<Match>,
     private readonly matchFilter: Filter<Match>,
     private readonly teamWinCount: ItemScore<string, number, Match>,
-    private readonly topNTeamNames: TopN
+    private readonly topNTeamNames: TopN<string, number>
   ) {}
 
   async execute(top: number): Promise<Map<string, number>> {

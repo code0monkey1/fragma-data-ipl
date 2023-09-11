@@ -1,5 +1,5 @@
-export interface TopN {
-  getTop(teamCount: Map<string, number>, n: number): Map<string, number>;
+export interface TopN<K, V> {
+  getTop(teamCount: Map<K, V>, n: number): Map<K, V>;
 }
 
 export interface Filter<T> {
@@ -79,7 +79,7 @@ export class MatchesInYear implements Filter<Match> {
   }
 }
 
-export class TopNTossWinningTeamNames implements TopN {
+export class TopNTossWinningTeamNames implements TopN<string, number> {
   getTop(team_count: Map<string, number>, n: number): Map<string, number> {
     const names = Array.from(team_count.entries()).sort((a, b) => {
       return b[1] - a[1];
