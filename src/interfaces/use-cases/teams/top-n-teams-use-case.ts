@@ -45,6 +45,6 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
     new TopNTossWinningTeamNames()
   );
 
-  const result = await topN.execute(10, '/data/deliveries.csv');
+  const result = await topN.execute(10, '/data/matches.csv');
   console.log(result);
 })();
