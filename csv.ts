@@ -15,14 +15,7 @@ export class CsvParser implements Parser<Match> {
     await new Promise((resolve) => {
       fs.createReadStream(APP_ROOT + fileName)
         .pipe(csv())
-        .on('data', (data: Match) =>
-          results.push({
-            ...data,
-            TOSS_DECISION:
-              data.TOSS_DECISION === 'field' ? TOSS.FIELD : TOSS.BAT,
-            SEASON: Number(data.SEASON),
-          })
-        )
+        .on('data', (data: Match) => results.push(data))
         .on('end', resolve);
     });
 
