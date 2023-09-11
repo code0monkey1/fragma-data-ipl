@@ -102,8 +102,6 @@ export class Team {
     private readonly matches: Match[]
   ) {}
 
-  getWinningCount() {}
-
   addMatch(match: Match) {
     this.matches.push(match);
   }
