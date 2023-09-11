@@ -111,7 +111,6 @@ describe('Top 4 Teams', () => {
 
       //act
       const result = sut.getTop(team_count, 3);
-      console.log(result);
 
       expect(Array.from(result.keys())).toStrictEqual(['d', 'c', 'b']);
 
@@ -184,31 +183,34 @@ describe('get top 4 which elected to field first after winning toss in year 2016
           .build(),
       ],
     },
-  ])('give us the answer', ({ valid, invalid }) => {
-    const matches = new MatchesInYear(new MatchesFieldFirst(), 2016).filter([
-      ...valid,
-      ...invalid,
-    ]);
+  ])(
+    ' will give all matches tht happened in 2016 , where decided to field',
+    ({ valid, invalid }) => {
+      const matches = new MatchesInYear(new MatchesFieldFirst(), 2016).filter([
+        ...valid,
+        ...invalid,
+      ]);
 
-    expect(allMatchesWithTossDecisionField(matches)).toBeTruthy();
+      expect(allMatchesWithTossDecisionField(matches)).toBeTruthy();
 
-    //arrange
-    const winningTeams = new WinningTeams();
-    const expected = new Map<string, number>();
+      //arrange
+      const winningTeams = new WinningTeams();
+      const expected = new Map<string, number>();
 
-    expected.set('c', 3);
-    expected.set('b', 2);
-    expected.set('a', 1);
+      expected.set('c', 3);
+      expected.set('b', 2);
+      expected.set('a', 1);
 
-    //act
-    const filteredByNames: Map<string, number> =
-      winningTeams.getTeamWinCount(matches);
+      //act
+      const filteredByNames: Map<string, number> =
+        winningTeams.getTeamWinCount(matches);
 
-    const top3 = getTopNTossWinningTeamNames().getTop(filteredByNames, 3);
+      const top3 = getTopNTossWinningTeamNames().getTop(filteredByNames, 3);
 
-    //assert
-    expect(top3).toStrictEqual(expected);
-  });
+      //assert
+      expect(top3).toStrictEqual(expected);
+    }
+  );
 });
 
 const allMatchesWithTossDecisionField = (matches: Match[]) => {
