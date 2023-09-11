@@ -1,6 +1,6 @@
 import {
+  Filter,
   Match,
-  MatchFilter,
   MatchesFieldFirst,
   MatchesInYear,
   WinningTeams,
@@ -14,11 +14,11 @@ export const getMatchesFieldFirst = () => {
   return new MatchesFieldFirst();
 };
 
-export const getMatchesInYear = (matchFilter: MatchFilter, year: number) => {
+export const getMatchesInYear = (matchFilter: Filter<Match>, year: number) => {
   return new MatchesInYear(matchFilter, year);
 };
 
-export function getMockMatchFilter(): MatchFilter {
+export function getMockMatchFilter(): Filter<Match> {
   return {
     filter: function (matches: Match[]): Match[] {
       return matches;
