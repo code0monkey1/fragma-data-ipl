@@ -12,7 +12,7 @@ import {
 } from '../../services';
 
 interface TopNTeamsToFieldFirstUseCase {
-  execute(top: number, year: number): Promise<Map<string, number>>;
+  execute(top: number, fileName: string): Promise<Map<string, number>>;
 }
 export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
   constructor(
@@ -22,8 +22,8 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
     private readonly topNTeamNames: TopN<string, number>
   ) {}
 
-  async execute(top: number): Promise<Map<string, number>> {
-    const matches = await this.matchCsvParser.parse();
+  async execute(top: number, fileName: string): Promise<Map<string, number>> {
+    const matches = await this.matchCsvParser.parse(fileName);
 
     const filteredMatches = this.matchFilter.filter(matches);
 
@@ -37,12 +37,12 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
 
 (async () => {
   const topN = new TopNTeams(
-    new CsvParser('../../../../data/matches.csv'),
+    new CsvParser(),
     getMatchFilters(2016),
     new WinningTeams(),
     new TopNTossWinningTeamNames()
   );
 
-  const result = await topN.execute(10);
+  const result = await topN.execute(10, '/data/deliveries.csv');
   console.log(result);
 })();
