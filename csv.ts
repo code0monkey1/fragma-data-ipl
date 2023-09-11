@@ -1,8 +1,8 @@
+import * as path from 'path';
 import { Match, TOSS } from './src/interfaces/services';
 
 const csv = require('csv-parser');
 const fs = require('fs');
-
 export interface Parser<T> {
   parse(): Promise<T[]>;
 }
@@ -13,7 +13,7 @@ export class CsvParser implements Parser<Match> {
     const results: Match[] = [];
 
     await new Promise((resolve) => {
-      fs.createReadStream(this.fileName)
+      fs.createReadStream(path.resolve(__dirname + this.fileName))
         .pipe(csv())
         .on('data', (data: Match) =>
           results.push({
