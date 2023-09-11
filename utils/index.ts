@@ -1,4 +1,2 @@
 import * as path from 'path';
-export default {
-  base_path: __dirname,
-};
+export const { APP_ROOT = path.resolve(__dirname, './') } = process.env;
