@@ -25,7 +25,6 @@ export default class TopNTeams implements TopNTeamsToFieldFirstUseCase {
   async execute(top: number, fileName: string): Promise<Map<string, number>> {
     const matches = await this.matchCsvParser.parse(fileName);
 
-    console.log('matches', matches);
     const filteredMatches = this.matchFilter.filter(matches);
 
     const winCount = this.teamWinCount.getTeamWinCount(filteredMatches);
