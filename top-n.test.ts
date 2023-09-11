@@ -110,9 +110,10 @@ describe('Top 4 Teams', () => {
       const sut = getTopNTossWinningTeamNames();
 
       //act
-      const result = sut.getTop(team_count, 1);
+      const result = sut.getTop(team_count, 3);
       console.log(result);
-      expect(result).toStrictEqual(['d']);
+
+      expect(Array.from(result.keys())).toStrictEqual(['d', 'c', 'b']);
 
       //assert
     });
