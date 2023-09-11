@@ -5,16 +5,15 @@ import { APP_ROOT } from './utils';
 const csv = require('csv-parser');
 const fs = require('fs');
 export interface Parser<T> {
-  parse(): Promise<T[]>;
+  parse(fileName: string): Promise<T[]>;
 }
 
 export class CsvParser implements Parser<Match> {
-  constructor(private readonly fileName: string) {}
-  async parse(): Promise<Match[]> {
+  async parse(fileName: string): Promise<Match[]> {
     const results: Match[] = [];
 
     await new Promise((resolve) => {
-      fs.createReadStream(APP_ROOT + this.fileName)
+      fs.createReadStream(APP_ROOT + fileName)
         .pipe(csv())
         .on('data', (data: Match) =>
           results.push({
